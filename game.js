@@ -66,15 +66,17 @@ const cyclePieces = [
 ];
 
 const dropZones = [
-  { id: "zone-fish-waste",     label: "Fish Waste",    x: 35, y:  4, w: 17, h: 16 },
-  { id: "zone-ammonia",        label: "Ammonia",       x: 14, y: 33, w: 14, h: 10 },
-  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x: 14, y: 46, w: 14, h: 11 },
-  { id: "zone-nitrite",        label: "Nitrite",       x: 38, y: 57, w: 14, h: 11 },
-  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 62, y: 46, w: 14, h: 11 },
-  { id: "zone-nitrate",        label: "Nitrate",       x: 58, y: 66, w: 14, h: 10 },
-  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 70, y:  8, w: 16, h: 14 },
-  { id: "zone-clean-water",    label: "Clean Water",   x: 63, y: 33, w: 14, h: 10 }
+  { id: "zone-fish-waste",     label: "Fish Waste",    x: 22, y:  3, w: 42, h: 22, clip: "ellipse(47% 45% at 50% 55%)" },
+  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 30, w: 27, h: 15, clip: "ellipse(46% 44% at 52% 50%)" },
+  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  4, y: 44, w: 27, h: 14, clip: "ellipse(46% 44% at 48% 50%)" },
+  { id: "zone-nitrite",        label: "Nitrite",       x: 36, y: 52, w: 28, h: 15, clip: "ellipse(47% 45% at 50% 50%)" },
+  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 66, y: 44, w: 27, h: 14, clip: "ellipse(46% 44% at 48% 50%)" },
+  { id: "zone-nitrate",        label: "Nitrate",       x: 66, y: 30, w: 27, h: 15, clip: "ellipse(46% 44% at 52% 50%)" },
+  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 14, y: 74, w: 70, h: 22, clip: "ellipse(49% 45% at 50% 50%)" },
+  { id: "zone-clean-water",    label: "Clean Water",   x: 65, y:  5, w: 27, h: 26, clip: "ellipse(44% 46% at 50% 52%)" }
 ];
+
+const BOARD_W = 1023, BOARD_H = 1537;
 
 const piecesRoot = document.querySelector("#pieces");
 const zonesRoot = document.querySelector("#zones");
@@ -146,11 +148,41 @@ function renderZones() {
     <div
       class="zone"
       data-zone-id="${zone.id}"
-      style="left:${zone.x}%;top:${zone.y}%;width:${zone.w}%;height:${zone.h}%"
+      style="left:${zone.x}%;top:${zone.y}%;width:${zone.w}%;height:${zone.h}%;clip-path:${zone.clip}"
       aria-label="${zone.label} drop zone"
     ></div>
   `).join("");
   sizeZoneBackgrounds();
+}
+
+function updateTrayThumbnails() {
+  document.querySelectorAll('.piece[data-piece-id]').forEach(pieceEl => {
+    const p = cyclePieces.find(x => x.id === pieceEl.dataset.pieceId);
+    if (!p) return;
+    const z = dropZones.find(x => x.id === p.target);
+    if (!z) return;
+    const iconEl = pieceEl.querySelector('.icon');
+    if (!iconEl) return;
+
+    const iW = iconEl.offsetWidth || 48;
+    const iH = iconEl.offsetHeight || 42;
+    const zoneNatW = z.w / 100 * BOARD_W;
+    const zoneNatH = z.h / 100 * BOARD_H;
+    const scale = Math.min(iW / zoneNatW, iH / zoneNatH) * 0.9;
+
+    const bgW = Math.round(BOARD_W * scale);
+    const bgH = Math.round(BOARD_H * scale);
+    const bgX = Math.round(-z.x / 100 * BOARD_W * scale + (iW - zoneNatW * scale) / 2);
+    const bgY = Math.round(-z.y / 100 * BOARD_H * scale + (iH - zoneNatH * scale) / 2);
+
+    iconEl.style.backgroundImage = 'url(assets/board.webp)';
+    iconEl.style.backgroundSize = `${bgW}px ${bgH}px`;
+    iconEl.style.backgroundPosition = `${bgX}px ${bgY}px`;
+    iconEl.style.backgroundRepeat = 'no-repeat';
+    iconEl.style.clipPath = z.clip;
+    iconEl.style.filter = 'grayscale(1) brightness(0.7)';
+    iconEl.textContent = '';
+  });
 }
 
 function setInfo(piece, status = "correct") {
@@ -256,6 +288,8 @@ function endDrag(event) {
 function lockPiece(pieceEl, piece, zone) {
   pieceEl.classList.add("locked");
   pieceEl.disabled = true;
+  const iconEl = pieceEl.querySelector('.icon');
+  if (iconEl) iconEl.style.filter = 'none';
   piecesRoot.appendChild(pieceEl);
 
   zone.classList.add("solved");
@@ -273,6 +307,7 @@ function resetGame() {
   state.placed.clear();
   completeDialog.close();
   renderPieces();
+  updateTrayThumbnails();
   renderZones();
   updateScore();
   infoPanel.className = "info-panel";
@@ -290,6 +325,7 @@ resetBtn.addEventListener("click", resetGame);
 playAgainBtn.addEventListener("click", resetGame);
 
 renderPieces();
+updateTrayThumbnails();
 renderZones();
 updateScore();
 
