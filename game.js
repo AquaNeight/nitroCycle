@@ -66,14 +66,16 @@ const cyclePieces = [
 ];
 
 const dropZones = [
-  { id: "zone-fish-waste", label: "Fish Waste", x: 52, y: 17, w: 12, h: 10 },
-  { id: "zone-ammonia", label: "Ammonia", x: 18, y: 47, w: 11, h: 11 },
-  { id: "zone-nitrosomonas", label: "Nitrosomonas", x: 37, y: 49, w: 11, h: 11 },
-  { id: "zone-nitrite", label: "Nitrite", x: 49, y: 66, w: 10, h: 10 },
-  { id: "zone-nitrobacter", label: "Nitrobacter", x: 64, y: 49, w: 11, h: 11 },
-  { id: "zone-nitrate", label: "Nitrate", x: 66, y: 72, w: 10, h: 10 },
-  { id: "zone-plant-uptake", label: "Plant Uptake", x: 79, y: 31, w: 12, h: 12 },
-  { id: "zone-clean-water", label: "Clean Water", x: 87, y: 20, w: 10, h: 10 }
+  // Positions tuned for the portrait aquaponic ecosystem illustration.
+  // Adjust x/y/w/h (% of image) after visual testing.
+  { id: "zone-fish-waste",     label: "Fish Waste",    x: 28, y:  5, w: 16, h: 14 },
+  { id: "zone-ammonia",        label: "Ammonia",       x: 10, y: 32, w: 15, h: 11 },
+  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x: 10, y: 47, w: 15, h: 12 },
+  { id: "zone-nitrite",        label: "Nitrite",       x: 38, y: 59, w: 14, h: 11 },
+  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 63, y: 47, w: 15, h: 12 },
+  { id: "zone-nitrate",        label: "Nitrate",       x: 60, y: 68, w: 14, h: 11 },
+  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 70, y: 10, w: 16, h: 14 },
+  { id: "zone-clean-water",    label: "Clean Water",   x: 64, y: 32, w: 15, h: 11 }
 ];
 
 const piecesRoot = document.querySelector("#pieces");
