@@ -66,22 +66,22 @@ const cyclePieces = [
 ];
 
 const dropZones = [
-  // Fish silhouettes — top centre
-  { id: "zone-fish-waste",     label: "Fish Waste",    x: 25, y:  3, w: 34, h: 22, clip: "ellipse(46% 44% at 50% 55%)" },
-  // Left bare tree — above water line (distinctive bare branches)
-  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 14, w: 22, h: 24, clip: "ellipse(45% 44% at 52% 50%)" },
-  // Left tree trunk descending into water
-  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  3, y: 37, w: 28, h: 22, clip: "ellipse(46% 45% at 52% 50%)" },
-  // Centre underwater — aqua bowl with tree base
-  { id: "zone-nitrite",        label: "Nitrite",       x: 32, y: 44, w: 32, h: 22, clip: "ellipse(46% 44% at 50% 50%)" },
-  // Right coral stem going into water
-  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 65, y: 37, w: 28, h: 22, clip: "ellipse(46% 45% at 48% 50%)" },
-  // Orange coral fronds — top right (vivid orange, very recognisable)
-  { id: "zone-nitrate",        label: "Nitrate",       x: 63, y:  5, w: 29, h: 30, clip: "ellipse(44% 46% at 50% 52%)" },
-  // Root system — bottom
-  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 13, y: 73, w: 72, h: 23, clip: "ellipse(49% 45% at 50% 50%)" },
-  // Water-surface reflection strip — centre, between left and right columns
-  { id: "zone-clean-water",    label: "Clean Water",   x: 28, y: 27, w: 34, h: 11, clip: "ellipse(47% 43% at 50% 50%)" }
+  // Fish silhouettes — top centre: two fish side-by-side, double-hump outline
+  { id: "zone-fish-waste",     label: "Fish Waste",    x: 25, y:  3, w: 34, h: 22, clip: "polygon(8% 30%, 18% 8%, 32% 2%, 42% 14%, 50% 8%, 60% 2%, 75% 10%, 88% 28%, 85% 50%, 72% 62%, 55% 58%, 50% 52%, 45% 58%, 28% 62%, 15% 50%)" },
+  // Left bare tree — fan shape: wide branching canopy tapering to trunk
+  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 14, w: 22, h: 24, clip: "polygon(40% 100%, 28% 82%, 8% 68%, 0% 52%, 12% 38%, 2% 22%, 15% 8%, 32% 2%, 52% 10%, 70% 20%, 75% 38%, 65% 52%, 78% 65%, 60% 78%, 48% 92%)" },
+  // Left tree trunk descending into water — elongated vertical blob
+  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  3, y: 37, w: 28, h: 22, clip: "polygon(30% 0%, 52% 5%, 70% 18%, 78% 40%, 72% 62%, 58% 80%, 48% 100%, 32% 100%, 22% 80%, 15% 58%, 18% 38%, 28% 18%)" },
+  // Centre underwater — rounded bowl blob
+  { id: "zone-nitrite",        label: "Nitrite",       x: 32, y: 44, w: 32, h: 22, clip: "polygon(15% 22%, 30% 5%, 52% 0%, 72% 8%, 88% 22%, 95% 48%, 85% 72%, 68% 90%, 50% 98%, 32% 90%, 15% 72%, 5% 48%)" },
+  // Right coral stem — slightly angled elongated shape
+  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 65, y: 37, w: 28, h: 22, clip: "polygon(35% 0%, 58% 5%, 75% 20%, 85% 42%, 80% 62%, 68% 80%, 60% 100%, 42% 100%, 32% 80%, 20% 62%, 18% 40%, 25% 20%)" },
+  // Orange coral fronds — triangular fan wider at top, narrowing to base
+  { id: "zone-nitrate",        label: "Nitrate",       x: 63, y:  5, w: 29, h: 30, clip: "polygon(10% 28%, 2% 15%, 12% 2%, 28% 10%, 42% 0%, 58% 5%, 72% 0%, 88% 8%, 98% 22%, 92% 42%, 78% 58%, 62% 75%, 50% 90%, 38% 78%, 22% 62%)" },
+  // Root system — wide irregular blob with lumpy root-like top edge
+  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 13, y: 73, w: 72, h: 23, clip: "polygon(0% 22%, 5% 8%, 18% 14%, 28% 2%, 40% 10%, 52% 0%, 62% 10%, 75% 2%, 88% 12%, 95% 5%, 100% 22%, 98% 58%, 88% 80%, 75% 95%, 60% 100%, 40% 100%, 25% 95%, 12% 80%, 2% 58%)" },
+  // Water-surface reflection strip — wavy horizontal band
+  { id: "zone-clean-water",    label: "Clean Water",   x: 28, y: 27, w: 34, h: 11, clip: "polygon(0% 18%, 15% 2%, 30% 22%, 45% 5%, 62% 20%, 78% 5%, 92% 18%, 100% 8%, 100% 72%, 88% 90%, 72% 72%, 55% 88%, 38% 72%, 22% 88%, 8% 72%, 0% 85%)" }
 ];
 
 const BOARD_W = 1023, BOARD_H = 1537;
