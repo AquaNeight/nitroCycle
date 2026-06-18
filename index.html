@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nitrogen Cycle Puzzle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Aquaponics Learning Game</p>
+        <h1>Nitrogen Cycle Puzzle</h1>
+      </div>
+      <div class="score-card" aria-live="polite">
+        <span id="scoreText">0 / 8 placed</span>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+    </header>
+
+    <section class="game-layout">
+      <aside class="piece-tray" aria-label="Puzzle pieces">
+        <h2>Drag pieces</h2>
+        <p class="tray-note">Place each part of the cycle onto the correct area of the image.</p>
+        <div id="pieces" class="pieces"></div>
+      </aside>
+
+      <section class="board-panel">
+        <div id="board" class="board" aria-label="Nitrogen cycle puzzle board">
+          <img src="assets/board.png" alt="Aquaponic ecosystem cross-section puzzle board" />
+          <div id="zones" class="zones"></div>
+        </div>
+
+        <section id="infoPanel" class="info-panel" aria-live="polite">
+          <p class="info-kicker">Drop a piece into the correct place</p>
+          <h2>Cycle information appears here</h2>
+          <p>Keep the image clean while the learning layer lives underneath. Tiny miracle: pedagogy without plastering text over every square inch.</p>
+        </section>
+      </section>
+    </section>
+
+    <dialog id="completeDialog">
+      <h2>Cycle complete</h2>
+      <p>You placed every part of the aquaponic nitrogen cycle. Fish waste becomes ammonia, bacteria convert ammonia into nitrite and nitrate, plants absorb nitrate, and cleaner water returns to the fish.</p>
+      <button id="playAgainBtn" type="button">Play again</button>
+    </dialog>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
