@@ -66,22 +66,22 @@ const cyclePieces = [
 ];
 
 const dropZones = [
-  // Fish silhouettes — top centre: two fish side-by-side, double-hump outline
-  { id: "zone-fish-waste",     label: "Fish Waste",    x: 25, y:  3, w: 34, h: 22, clip: "polygon(8% 30%, 18% 8%, 32% 2%, 42% 14%, 50% 8%, 60% 2%, 75% 10%, 88% 28%, 85% 50%, 72% 62%, 55% 58%, 50% 52%, 45% 58%, 28% 62%, 15% 50%)" },
-  // Left bare tree — fan shape: wide branching canopy tapering to trunk
-  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 14, w: 22, h: 24, clip: "polygon(40% 100%, 28% 82%, 8% 68%, 0% 52%, 12% 38%, 2% 22%, 15% 8%, 32% 2%, 52% 10%, 70% 20%, 75% 38%, 65% 52%, 78% 65%, 60% 78%, 48% 92%)" },
-  // Left tree trunk descending into water — elongated vertical blob
-  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  3, y: 37, w: 28, h: 22, clip: "polygon(30% 0%, 52% 5%, 70% 18%, 78% 40%, 72% 62%, 58% 80%, 48% 100%, 32% 100%, 22% 80%, 15% 58%, 18% 38%, 28% 18%)" },
-  // Centre underwater — rounded bowl blob
-  { id: "zone-nitrite",        label: "Nitrite",       x: 32, y: 44, w: 32, h: 22, clip: "polygon(15% 22%, 30% 5%, 52% 0%, 72% 8%, 88% 22%, 95% 48%, 85% 72%, 68% 90%, 50% 98%, 32% 90%, 15% 72%, 5% 48%)" },
-  // Right coral stem — slightly angled elongated shape
-  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 65, y: 37, w: 28, h: 22, clip: "polygon(35% 0%, 58% 5%, 75% 20%, 85% 42%, 80% 62%, 68% 80%, 60% 100%, 42% 100%, 32% 80%, 20% 62%, 18% 40%, 25% 20%)" },
-  // Orange coral fronds — triangular fan wider at top, narrowing to base
-  { id: "zone-nitrate",        label: "Nitrate",       x: 63, y:  5, w: 29, h: 30, clip: "polygon(10% 28%, 2% 15%, 12% 2%, 28% 10%, 42% 0%, 58% 5%, 72% 0%, 88% 8%, 98% 22%, 92% 42%, 78% 58%, 62% 75%, 50% 90%, 38% 78%, 22% 62%)" },
-  // Root system — wide irregular blob with lumpy root-like top edge
-  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 13, y: 73, w: 72, h: 23, clip: "polygon(0% 22%, 5% 8%, 18% 14%, 28% 2%, 40% 10%, 52% 0%, 62% 10%, 75% 2%, 88% 12%, 95% 5%, 100% 22%, 98% 58%, 88% 80%, 75% 95%, 60% 100%, 40% 100%, 25% 95%, 12% 80%, 2% 58%)" },
-  // Water-surface reflection strip — wavy horizontal band
-  { id: "zone-clean-water",    label: "Clean Water",   x: 28, y: 27, w: 34, h: 11, clip: "polygon(0% 18%, 15% 2%, 30% 22%, 45% 5%, 62% 20%, 78% 5%, 92% 18%, 100% 8%, 100% 72%, 88% 90%, 72% 72%, 55% 88%, 38% 72%, 22% 88%, 8% 72%, 0% 85%)" }
+  // Fish silhouettes — Adobe remove_background outline; zone re-centred on actual fish
+  { id: "zone-fish-waste",     label: "Fish Waste",    x: 24, y:  4, w: 37, h: 21, clip: "polygon(71% 29%, 79% 32%, 98% 26%, 97% 44%, 75% 52%, 75% 54%, 83% 81%, 71% 87%, 59% 82%, 64% 57%, 58% 54%, 44% 44%, 55% 35%, 62% 29%)" },
+  // Left bare tree — above waterline; no AI mask available, smooth ellipse
+  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 14, w: 22, h: 24, clip: "ellipse(44% 46% at 52% 50%)" },
+  // Left tree trunk descending into water — smooth ellipse
+  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  3, y: 37, w: 28, h: 22, clip: "ellipse(44% 46% at 52% 50%)" },
+  // Centre underwater tree base — Adobe AI mask polygon; zone adjusted to y=45%
+  { id: "zone-nitrite",        label: "Nitrite",       x: 24, y: 45, w: 40, h: 21, clip: "polygon(57% 42%, 69% 21%, 92% 19%, 86% 47%, 68% 58%, 72% 70%, 72% 97%, 57% 98%, 40% 98%, 32% 80%, 33% 62%, 36% 49%, 21% 19%, 43% 19%)" },
+  // Right coral stem in water — smooth ellipse
+  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 65, y: 37, w: 28, h: 22, clip: "ellipse(44% 46% at 48% 50%)" },
+  // Orange coral fronds — Adobe AI mask polygon; zone extended left to x=50%
+  { id: "zone-nitrate",        label: "Nitrate",       x: 50, y: 11, w: 40, h: 31, clip: "polygon(52% 29%, 79% 7%, 93% 26%, 90% 47%, 77% 59%, 76% 71%, 69% 84%, 52% 96%, 28% 98%, 12% 82%, 25% 60%, 22% 49%, 32% 41%, 37% 27%)" },
+  // Root system — Adobe AI mask polygon; zone moved UP to y=59% (roots detected at y=60–84%)
+  { id: "zone-plant-uptake",   label: "Plant Uptake",  x:  9, y: 59, w: 79, h: 25, clip: "polygon(51% 33%, 55% 28%, 70% 16%, 93% 28%, 83% 63%, 74% 87%, 59% 84%, 51% 94%, 44% 79%, 31% 81%, 20% 63%, 9% 28%, 30% 14%, 42% 12%)" },
+  // Water surface reflections — Adobe AI mask polygon; zone moved DOWN to y=39% (water detected at y=42–49%)
+  { id: "zone-clean-water",    label: "Clean Water",   x: 22, y: 39, w: 56, h: 12, clip: "polygon(49% 4%, 56% 4%, 65% 9%, 92% 16%, 98% 81%, 64% 81%, 55% 83%, 49% 81%, 44% 84%, 35% 82%, 2% 80%, 3% 14%, 34% 9%, 43% 5%)" }
 ];
 
 const BOARD_W = 1023, BOARD_H = 1537;
