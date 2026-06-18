@@ -66,14 +66,22 @@ const cyclePieces = [
 ];
 
 const dropZones = [
-  { id: "zone-fish-waste",     label: "Fish Waste",    x: 22, y:  3, w: 42, h: 22, clip: "ellipse(47% 45% at 50% 55%)" },
-  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 30, w: 27, h: 15, clip: "ellipse(46% 44% at 52% 50%)" },
-  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  4, y: 44, w: 27, h: 14, clip: "ellipse(46% 44% at 48% 50%)" },
-  { id: "zone-nitrite",        label: "Nitrite",       x: 36, y: 52, w: 28, h: 15, clip: "ellipse(47% 45% at 50% 50%)" },
-  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 66, y: 44, w: 27, h: 14, clip: "ellipse(46% 44% at 48% 50%)" },
-  { id: "zone-nitrate",        label: "Nitrate",       x: 66, y: 30, w: 27, h: 15, clip: "ellipse(46% 44% at 52% 50%)" },
-  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 14, y: 74, w: 70, h: 22, clip: "ellipse(49% 45% at 50% 50%)" },
-  { id: "zone-clean-water",    label: "Clean Water",   x: 65, y:  5, w: 27, h: 26, clip: "ellipse(44% 46% at 50% 52%)" }
+  // Fish silhouettes — top centre
+  { id: "zone-fish-waste",     label: "Fish Waste",    x: 25, y:  3, w: 34, h: 22, clip: "ellipse(46% 44% at 50% 55%)" },
+  // Left bare tree — above water line (distinctive bare branches)
+  { id: "zone-ammonia",        label: "Ammonia",       x:  4, y: 14, w: 22, h: 24, clip: "ellipse(45% 44% at 52% 50%)" },
+  // Left tree trunk descending into water
+  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x:  3, y: 37, w: 28, h: 22, clip: "ellipse(46% 45% at 52% 50%)" },
+  // Centre underwater — aqua bowl with tree base
+  { id: "zone-nitrite",        label: "Nitrite",       x: 32, y: 44, w: 32, h: 22, clip: "ellipse(46% 44% at 50% 50%)" },
+  // Right coral stem going into water
+  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 65, y: 37, w: 28, h: 22, clip: "ellipse(46% 45% at 48% 50%)" },
+  // Orange coral fronds — top right (vivid orange, very recognisable)
+  { id: "zone-nitrate",        label: "Nitrate",       x: 63, y:  5, w: 29, h: 30, clip: "ellipse(44% 46% at 50% 52%)" },
+  // Root system — bottom
+  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 13, y: 73, w: 72, h: 23, clip: "ellipse(49% 45% at 50% 50%)" },
+  // Water-surface reflection strip — centre, between left and right columns
+  { id: "zone-clean-water",    label: "Clean Water",   x: 28, y: 27, w: 34, h: 11, clip: "ellipse(47% 43% at 50% 50%)" }
 ];
 
 const BOARD_W = 1023, BOARD_H = 1537;
