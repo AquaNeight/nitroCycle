@@ -292,10 +292,14 @@ dialog::backdrop {
 }
 
 @media (max-width: 950px) {
-  .topbar,
-  .game-layout {
-    grid-template-columns: 1fr;
+  .topbar {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .game-layout {
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   .score-card {
@@ -304,10 +308,21 @@ dialog::backdrop {
 
   .piece-tray {
     min-height: auto;
+    padding: 14px;
+  }
+
+  .piece-tray h2,
+  .tray-note {
+    display: none;
   }
 
   .pieces {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    margin-top: 0;
+  }
+
+  .piece {
+    padding: 7px;
   }
 
   .board {
