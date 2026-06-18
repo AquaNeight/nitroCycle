@@ -245,6 +245,7 @@ function startDrag(event) {
   pieceEl.style.left = `${rect.left}px`;
   pieceEl.style.top = `${rect.top}px`;
 
+  document.body.classList.add("dragging-active");
   document.body.appendChild(pieceEl);
   pieceEl.setPointerCapture?.(event.pointerId);
 }
@@ -290,6 +291,7 @@ function endDrag(event) {
   }
 
   clearZoneStates();
+  document.body.classList.remove("dragging-active");
   state.dragging = null;
 }
 
