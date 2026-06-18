@@ -66,14 +66,14 @@ const cyclePieces = [
 ];
 
 const dropZones = [
-  { id: "zone-fish-waste", label: "Fish Waste", x: 52, y: 17, w: 12, h: 10 },
-  { id: "zone-ammonia", label: "Ammonia", x: 18, y: 47, w: 11, h: 11 },
-  { id: "zone-nitrosomonas", label: "Nitrosomonas", x: 37, y: 49, w: 11, h: 11 },
-  { id: "zone-nitrite", label: "Nitrite", x: 49, y: 66, w: 10, h: 10 },
-  { id: "zone-nitrobacter", label: "Nitrobacter", x: 64, y: 49, w: 11, h: 11 },
-  { id: "zone-nitrate", label: "Nitrate", x: 66, y: 72, w: 10, h: 10 },
-  { id: "zone-plant-uptake", label: "Plant Uptake", x: 79, y: 31, w: 12, h: 12 },
-  { id: "zone-clean-water", label: "Clean Water", x: 87, y: 20, w: 10, h: 10 }
+  { id: "zone-fish-waste",     label: "Fish Waste",    x: 35, y:  4, w: 17, h: 16 },
+  { id: "zone-ammonia",        label: "Ammonia",       x: 14, y: 33, w: 14, h: 10 },
+  { id: "zone-nitrosomonas",   label: "Nitrosomonas",  x: 14, y: 46, w: 14, h: 11 },
+  { id: "zone-nitrite",        label: "Nitrite",       x: 38, y: 57, w: 14, h: 11 },
+  { id: "zone-nitrobacter",    label: "Nitrobacter",   x: 62, y: 46, w: 14, h: 11 },
+  { id: "zone-nitrate",        label: "Nitrate",       x: 58, y: 66, w: 14, h: 10 },
+  { id: "zone-plant-uptake",   label: "Plant Uptake",  x: 70, y:  8, w: 16, h: 14 },
+  { id: "zone-clean-water",    label: "Clean Water",   x: 63, y: 33, w: 14, h: 10 }
 ];
 
 const piecesRoot = document.querySelector("#pieces");
@@ -83,6 +83,44 @@ const scoreText = document.querySelector("#scoreText");
 const resetBtn = document.querySelector("#resetBtn");
 const completeDialog = document.querySelector("#completeDialog");
 const playAgainBtn = document.querySelector("#playAgainBtn");
+
+// ── Audio (Web Audio API — no files needed) ───────────────────────────────
+let audioCtx = null;
+function ac() { return audioCtx || (audioCtx = new (window.AudioContext || window.webkitAudioContext)()); }
+function note(freq, t, dur, type = 'sine', vol = 0.22) {
+  const ctx = ac(), o = ctx.createOscillator(), g = ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(vol, ctx.currentTime + t);
+  g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + dur);
+  o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + dur + 0.05);
+}
+function playCorrect() { note(523,0,.12); note(659,.1,.12); note(784,.2,.22); }
+function playWrong()   { note(180,0,.15,'sawtooth',.12); note(155,.12,.2,'sawtooth',.08); }
+function playComplete(){ [523,659,784,1047,784,1047].forEach((f,i) => note(f, i*.13, .25)); }
+
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.92;
+  u.pitch = 1.05;
+  window.speechSynthesis.speak(u);
+}
+
+// ── Zone image backgrounds (grey-to-colour reveal) ────────────────────────
+function sizeZoneBackgrounds() {
+  const board = document.querySelector('#board');
+  const W = board.offsetWidth, H = board.offsetHeight;
+  if (!W || !H) return;
+  document.querySelectorAll('.zone').forEach(el => {
+    const z = dropZones.find(d => d.id === el.dataset.zoneId);
+    if (!z) return;
+    el.style.backgroundImage    = 'url(assets/board.webp)';
+    el.style.backgroundSize     = `${W}px ${H}px`;
+    el.style.backgroundPosition = `-${z.x / 100 * W}px -${z.y / 100 * H}px`;
+  });
+}
 
 const state = {
   placed: new Set(),
@@ -112,6 +150,7 @@ function renderZones() {
       aria-label="${zone.label} drop zone"
     ></div>
   `).join("");
+  sizeZoneBackgrounds();
 }
 
 function setInfo(piece, status = "correct") {
@@ -137,6 +176,7 @@ function setTryAgain(piece) {
 function updateScore() {
   scoreText.textContent = `${state.placed.size} / ${cyclePieces.length} placed`;
   if (state.placed.size === cyclePieces.length) {
+    playComplete();
     setTimeout(() => completeDialog.showModal(), 350);
   }
 }
@@ -195,11 +235,14 @@ function endDrag(event) {
   if (zone && piece.target === zone.dataset.zoneId) {
     lockPiece(pieceEl, piece, zone);
     setInfo(piece, "correct");
+    playCorrect();
+    speak(`${piece.label}. ${piece.info}`);
     state.placed.add(piece.id);
     updateScore();
   } else {
     piecesRoot.appendChild(pieceEl);
     setTryAgain(piece);
+    playWrong();
     if (zone) {
       zone.classList.add("wrong");
       setTimeout(() => zone.classList.remove("wrong"), 450);
@@ -214,6 +257,8 @@ function lockPiece(pieceEl, piece, zone) {
   pieceEl.classList.add("locked");
   pieceEl.disabled = true;
   piecesRoot.appendChild(pieceEl);
+
+  zone.classList.add("solved");
 
   const token = document.createElement("button");
   token.className = "placed-token";
@@ -234,7 +279,7 @@ function resetGame() {
   infoPanel.innerHTML = `
     <p class="info-kicker">Drop a piece into the correct place</p>
     <h2>Cycle information appears here</h2>
-    <p>Keep the image clean while the learning layer lives underneath.</p>
+    <p>Drag a puzzle piece from the tray and drop it onto the matching area of the nitrogen cycle diagram.</p>
   `;
 }
 
@@ -247,3 +292,8 @@ playAgainBtn.addEventListener("click", resetGame);
 renderPieces();
 renderZones();
 updateScore();
+
+const boardImg = document.querySelector('#board img');
+if (boardImg.complete) sizeZoneBackgrounds();
+else boardImg.addEventListener('load', sizeZoneBackgrounds);
+new ResizeObserver(sizeZoneBackgrounds).observe(document.querySelector('#board'));

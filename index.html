@@ -3,7 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nitrogen Cycle Puzzle</title>
+  <title>Nitrogen Cycle Puzzle – Aquaponics Learning Game</title>
+  <meta name="description" content="An interactive drag-and-drop puzzle to learn the aquaponic nitrogen cycle. Place fish waste, bacteria, and plant uptake pieces in the correct order." />
+  <meta name="theme-color" content="#10140f" />
+  <meta property="og:title" content="Nitrogen Cycle Puzzle" />
+  <meta property="og:description" content="Learn the aquaponic nitrogen cycle through an interactive drag-and-drop puzzle." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+  <link rel="preload" as="image" href="assets/board.webp" type="image/webp" />
+  <link rel="preload" as="image" href="assets/board.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -28,14 +36,17 @@
 
       <section class="board-panel">
         <div id="board" class="board" aria-label="Nitrogen cycle puzzle board">
-          <img src="assets/board.png" alt="Aquaponic ecosystem cross-section puzzle board" />
+          <picture>
+            <source srcset="assets/board.webp" type="image/webp" />
+            <img src="assets/board.png" alt="Aquaponic ecosystem cross-section puzzle board" width="1023" height="1537" />
+          </picture>
           <div id="zones" class="zones"></div>
         </div>
 
         <section id="infoPanel" class="info-panel" aria-live="polite">
           <p class="info-kicker">Drop a piece into the correct place</p>
           <h2>Cycle information appears here</h2>
-          <p>Keep the image clean while the learning layer lives underneath. Tiny miracle: pedagogy without plastering text over every square inch.</p>
+          <p>Drag a puzzle piece from the tray and drop it onto the matching area of the nitrogen cycle diagram.</p>
         </section>
       </section>
     </section>
