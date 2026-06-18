@@ -234,7 +234,7 @@ function resetGame() {
   infoPanel.innerHTML = `
     <p class="info-kicker">Drop a piece into the correct place</p>
     <h2>Cycle information appears here</h2>
-    <p>Keep the image clean while the learning layer lives underneath.</p>
+    <p>Drag a puzzle piece from the tray and drop it onto the matching area of the nitrogen cycle diagram.</p>
   `;
 }
 
